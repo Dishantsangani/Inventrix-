@@ -7,13 +7,13 @@ function Products() {
   return (
     <>
       <div className="layout-content-container flex flex-col max-w-[960px]">
-        <div className="bg-gray-100 p-8 w-full rounded-lg max-w-5xl mx-auto">
+        <div className="bg-white p-8 w-full rounded-lg max-w-5xl mx-auto">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <h1 className="text-4xl text-slate-900 font-bold">Product !</h1>
             <button
               type="button"
               onClick={() => setmodel(!model)}
-              className="px-5 py-3 rounded-lg text-white text-sm font-medium tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 cursor-pointer"
+              className="px-5 py-3 rounded-lg text-white text-sm font-medium tracking-wider border-none outline-none bg-[#1E3A8A] hover:bg-blue-700 cursor-pointer"
             >
               Add Product
             </button>
@@ -237,14 +237,14 @@ function Products() {
 
             {/* Buttons */}
             <div className="flex justify-end gap-4 mt-8">
-              <button className="h-10 px-6 rounded-full bg-[#4264fa] hover:bg-[#2e4eda] transition text-white text-sm font-bold">
-                Add Product
-              </button>
               <button
                 onClick={() => setmodel(!model)}
-                className="h-10 px-6 rounded-full bg-gray-100 hover:bg-gray-200 transition text-[#0d0f1c] text-sm font-bold"
+                className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] transition text-[white] text-sm font-bold"
               >
                 Close
+              </button>
+              <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] transition text-white text-sm font-bold">
+                Add Product
               </button>
             </div>
           </div>

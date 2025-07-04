@@ -5,13 +5,13 @@ function Supplier() {
   return (
     <>
       <div className="flex flex-col max-w-[960px]">
-        <div className="bg-gray-100 p-8 w-full rounded-lg max-w-5xl mx-auto">
+        <div className="bg-white p-8 w-full rounded-lg max-w-5xl mx-auto">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <h1 className="text-4xl text-slate-900 font-bold">Suppliers !</h1>
             <button
               type="button"
               onClick={() => setmodel(!model)}
-              className="px-5 py-3 rounded-lg text-white text-sm font-medium tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 cursor-pointer"
+              className="px-5 py-3 rounded-lg text-white text-sm font-medium tracking-wider border-none outline-none bg-[#1E3A8A] hover:bg-blue-700 cursor-pointer"
             >
               Add Suppliers
             </button>
@@ -25,7 +25,7 @@ function Supplier() {
           >
             <div className="w-full max-w-[800px] bg-white rounded-2xl shadow-2xl overflow-y-auto max-h-[90vh]">
               {/* Header */}
-              <div className="flex justify-between items-center p-6 border-b border-gray-200">
+              <div className="flex justify-between items-center p-6 border-b  ">
                 <p className="text-[#0f111a] text-3xl font-bold leading-tight">
                   Add Supplier
                 </p>
@@ -40,7 +40,7 @@ function Supplier() {
                   </span>
                   <input
                     placeholder="Enter customer name"
-                    className="h-14 p-4 rounded-xl bg-[#e9eaf2] placeholder:text-[#56618f] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
                 </label>
 
@@ -51,7 +51,7 @@ function Supplier() {
                   </span>
                   <input
                     placeholder="Enter email address"
-                    className="h-14 p-4 rounded-xl bg-[#e9eaf2] placeholder:text-[#56618f] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
                 </label>
 
@@ -62,7 +62,7 @@ function Supplier() {
                   </span>
                   <input
                     placeholder="Enter phone number"
-                    className="h-14 p-4 rounded-xl bg-[#e9eaf2] placeholder:text-[#56618f] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
                 </label>
 
@@ -73,7 +73,7 @@ function Supplier() {
                   </span>
                   <textarea
                     placeholder="Enter customer address"
-                    className="min-h-[100px] p-4 rounded-xl bg-[#e9eaf2] placeholder:text-[#56618f] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
+                    className="min-h-[100px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
                   />
                 </label>
 
@@ -84,7 +84,7 @@ function Supplier() {
                   </span>
                   <textarea
                     placeholder="Additional details about the customer"
-                    className="min-h-[120px] p-4 rounded-xl bg-[#e9eaf2] placeholder:text-[#56618f] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
+                    className="min-h-[120px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
                   />
                 </label>
               </div>
@@ -93,12 +93,12 @@ function Supplier() {
               <div className="flex justify-end gap-4 px-6 py-6 border-t border-gray-200">
                 <button
                   onClick={() => setmodel(!model)}
-                  className="h-10 px-6 rounded-full bg-[#e9eaf2] hover:bg-[#d6d8e5] text-[#0f111a] text-sm font-bold transition"
+                  className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181]  text-white text-sm font-bold transition"
                 >
                   Cancel
                 </button>
-                <button className="h-10 px-6 rounded-full bg-[#4264fa] hover:bg-[#2e4eda] text-white text-sm font-bold transition">
-                  Save
+                <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] text-white text-sm font-bold transition">
+                  Add Supplier
                 </button>
               </div>
             </div>

@@ -10,11 +10,13 @@ import Customer from "./Page/Customer/Customer";
 import Layout from "./Component/Layout";
 import Sidebar from "./Component/Sidebar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./Component/Navbar";
 
 function App() {
   return (
     <>
       <Router>
+        <Navbar />
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
@@ -25,6 +27,7 @@ function App() {
             <Route path="/report" element={<Report />} />
           </Route>
         </Routes>
+        <Footer />
       </Router>
     </>
   );

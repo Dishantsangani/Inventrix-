@@ -1,95 +1,61 @@
 import React from "react";
+import navimg from "../assets/Navbar/navbarimage.png";
 
 function Navbar() {
   return (
-    <div>
-      <header className="flex items-center justify-around whitespace-nowrap border-b border-solid border-b-[#e6e9f4] px-10 py-3">
-        <div className="flex items-center gap-36">
-          <div className="flex items-center gap-4 text-[#0d0f1c]">
-            <div className="size-4">
-              <svg
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-            <h2 className="text-[#0d0f1c] text-lg font-bold leading-tight tracking-[-0.015em]">
-              Inventrix
-            </h2>
-          </div>
-          <div className="flex items-center gap-28">
-            <a
-              className="text-[#0d0f1c] text-sm font-medium leading-normal"
-              href="#"
-            >
-              Dashboard
-            </a>
-            <a
-              className="text-[#0d0f1c] text-sm font-medium leading-normal"
-              href="#"
-            >
-              Products
-            </a>
-            <a
-              className="text-[#0d0f1c] text-sm font-medium leading-normal"
-              href="#"
-            >
-              Orders
-            </a>
-            <a
-              className="text-[#0d0f1c] text-sm font-medium leading-normal"
-              href="#"
-            >
-              Suppliers
-            </a>
-            <a
-              className="text-[#0d0f1c] text-sm font-medium leading-normal"
-              href="#"
-            >
-              Reports
-            </a>
-          </div>
-        </div>
-        <div className="flex flex-1 justify-end gap-8">
-          <label className="flex flex-col min-w-40 ml-5 !h-10 max-w-64">
-            <div className="flex w-full flex-1 items-stretch rounded-lg h-full">
-              <div
-                className="text-[#47569e] flex border-none bg-[#e6e9f4] items-center justify-center pl-4 rounded-l-lg border-r-0"
-                data-icon="MagnifyingGlass"
-                data-size="24px"
-                data-weight="regular"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24px"
-                  height="24px"
-                  fill="currentColor"
-                  viewBox="0 0 256 256"
-                >
-                  <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" />
-                </svg>
-              </div>
-              <input
-                placeholder="Search"
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#0d0f1c] focus:outline-0 focus:ring-0 border-none bg-[#e6e9f4] focus:border-none h-full placeholder:text-[#47569e] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
-                defaultValue=""
-              />
-            </div>
-          </label>
-          <div
-            className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-            style={{
-              backgroundImage:
-                'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCEMkHq5Hm1raHMQFWMpnVPIyKqEPXlEt86emFG7IPdY-V_kyCkztIufjusopRyVjBra-HLdYyFwf2KKnZCaIQtEiBudUUt7wUO8gj7zaDjmtKgMgZV3jquHOklJIpP5ejtOIIq8eFRwsjx2e2dEbvyHwhyCfJMJPpF6f6YWBo5kLfoQsMV-VvcXxpQxBh9EXwyz2RLskNAEw7LYD09gQEZ-aa3bwCHjtUD2yuUbLdNYcmmnlmPn7z_hLFfuzLXvoBngDU9Xmw_qw5")',
-            }}
+    <div className="w-full flex items-center justify-between px-6 py-3 bg-[#FFFFFF] shadow-sm border-b">
+      {/* Left section - Logo/Title */}
+      <h1 className="text-xl font-semibold text-gray-800">Inventrix</h1>
+
+      {/* Right section */}
+      <div className="flex items-center space-x-4">
+        {/* Search bar */}
+        <div className="flex items-center space-x-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5 text-gray-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="m21 21-5.2-5.2M16 10a6 6 0 11-12 0 6 6 0 0112 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search anything here"
+            className="w-64 px-4 py-2 rounded-full bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
           />
         </div>
-      </header>
+
+        {/* Bell Icon */}
+        <button className="text-gray-600 hover:text-gray-900">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+            />
+          </svg>
+        </button>
+
+        {/* Profile */}
+        <div className="flex items-center space-x-2">
+          <img src={navimg} alt="profile" className="w-8 h-8 rounded-full" />
+          <span className="text-sm font-medium text-gray-700">Dishant</span>
+        </div>
+      </div>
     </div>
   );
 }

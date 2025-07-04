@@ -5,13 +5,13 @@ function Order() {
   const [model, setmodel] = useState(false);
   return (
     <div className="max-w-[960px]">
-      <div className="bg-gray-100 p-8 w-full rounded-lg max-w-5xl mx-auto">
+      <div className="bg-white p-8 w-full rounded-lg max-w-5xl mx-auto">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <h1 className="text-4xl text-slate-900 font-bold">Order !</h1>
           <button
             type="button"
             onClick={() => setmodel(!model)}
-            className="px-5 py-3 rounded-lg text-white text-sm font-medium tracking-wider border-none outline-none bg-blue-600 hover:bg-blue-700 cursor-pointer"
+            className="px-5 py-3 rounded-lg text-white text-sm font-medium tracking-wider border-none outline-none bg-[#1E3A8A] hover:bg-blue-700 cursor-pointer"
           >
             Add Order
           </button>
@@ -23,7 +23,7 @@ function Order() {
           role="dialog"
           aria-modal="true"
         >
-          <div className="w-full max-w-3xl bg-white shadow-lg overflow-y-auto max-h-[90vh]">
+          <div className="w-full rounded-xl max-w-3xl bg-white shadow-lg overflow-y-auto max-h-[90vh]">
             {/* Header */}
             <div className="flex justify-between p-4 border-b border-gray-200">
               <p className="text-[#0d0f1c] text-[32px] font-bold">New Order</p>
@@ -103,11 +103,11 @@ function Order() {
             <div className="flex justify-end px-4 py-6 gap-4 border-t border-gray-200">
               <button
                 onClick={() => setmodel(!model)}
-                className="h-10 px-6 rounded-full bg-[#e6e9f4] text-[#0d0f1c] text-sm font-bold"
+                className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] transition text-[white] text-sm font-bold"
               >
                 Cancel
               </button>
-              <button className="h-10 px-6 rounded-full bg-[#4264fa] text-white text-sm font-bold">
+              <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] transition text-white text-sm font-bold">
                 Create Order
               </button>
             </div>
