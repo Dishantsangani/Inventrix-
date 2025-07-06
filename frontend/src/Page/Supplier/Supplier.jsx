@@ -43,7 +43,6 @@ function Supplier() {
                     className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
                 </label>
-
                 {/* Email */}
                 <label className="flex flex-col">
                   <span className="text-base font-semibold text-[#0f111a] pb-2">
@@ -54,7 +53,6 @@ function Supplier() {
                     className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
                 </label>
-
                 {/* Phone Number */}
                 <label className="flex flex-col">
                   <span className="text-base font-semibold text-[#0f111a] pb-2">
@@ -64,8 +62,16 @@ function Supplier() {
                     placeholder="Enter phone number"
                     className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
+                </label>{" "}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0f111a] pb-2">
+                    Company Name
+                  </span>
+                  <input
+                    placeholder="Enter company name"
+                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                  />
                 </label>
-
                 {/* Address (span 2 columns) */}
                 <label className="flex flex-col md:col-span-2">
                   <span className="text-base font-semibold text-[#0f111a] pb-2">
@@ -76,14 +82,13 @@ function Supplier() {
                     className="min-h-[100px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
                   />
                 </label>
-
                 {/* Notes (span 2 columns) */}
                 <label className="flex flex-col md:col-span-2">
                   <span className="text-base font-semibold text-[#0f111a] pb-2">
                     Notes
                   </span>
                   <textarea
-                    placeholder="Additional details about the customer"
+                    placeholder="Additional details about the Supplier"
                     className="min-h-[120px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
                   />
                 </label>
@@ -110,7 +115,7 @@ function Supplier() {
           <label className="flex flex-col min-w-40 h-12 w-full">
             <div className="flex w-full flex-1 items-stretch rounded-xl h-full">
               <div
-                className="text-[#56618f] flex border-none bg-[#e9eaf2] items-center justify-center pl-4 rounded-l-xl border-r-0"
+                className="text-[#56618f] flex border-none bg-white items-center justify-center pl-4 rounded-l-xl border-r-0"
                 data-icon="MagnifyingGlass"
                 data-size="24px"
                 data-weight="regular"
@@ -127,7 +132,7 @@ function Supplier() {
               </div>
               <input
                 placeholder="Search suppliers..."
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0f111a] focus:outline-0 focus:ring-0 border-none bg-[#e9eaf2] focus:border-none h-full placeholder:text-[#56618f] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0f111a] focus:outline-0 focus:ring-0 border-none bg-white focus:border-none h-full placeholder:text-[#56618f] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
                 defaultValue=""
               />
             </div>
@@ -139,16 +144,22 @@ function Supplier() {
               <thead>
                 <tr className="bg-[#f9f9fb]">
                   <th className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-120 px-4 py-3 text-left text-[#0f111a] w-[400px] text-sm font-medium leading-normal">
-                    Supplier ID
+                    Supplier Name
                   </th>
                   <th className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-240 px-4 py-3 text-left text-[#0f111a] w-[400px] text-sm font-medium leading-normal">
-                    Name
+                    Company Name
                   </th>
                   <th className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360 px-4 py-3 text-left text-[#0f111a] w-[400px] text-sm font-medium leading-normal">
-                    Contact
+                    Contact Number
                   </th>
                   <th className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 px-4 py-3 text-left text-[#0f111a] w-[400px] text-sm font-medium leading-normal">
-                    Products Supplied
+                    Email
+                  </th>
+                  <th className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 px-4 py-3 text-left text-[#0f111a] w-[400px] text-sm font-medium leading-normal">
+                    Address
+                  </th>
+                  <th className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 px-4 py-3 text-left text-[#0f111a] w-[400px] text-sm font-medium leading-normal">
+                    Total Supplied
                   </th>
                   <th className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-600 px-4 py-3 text-left text-[#0f111a] w-60  text-sm font-medium leading-normal">
                     Actions
@@ -158,98 +169,43 @@ function Supplier() {
               <tbody>
                 <tr className="border-t border-t-[#d2d6e4]">
                   <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-120 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    SUP001
+                    Alice Johnson
                   </td>
                   <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0f111a] text-sm font-normal leading-normal">
                     Global Tech Supplies
+                  </td>
+                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360 h-[72px] px-4 py-2 w-[400px] text-[#0f111a] text-sm font-normal leading-normal">
+                    +1234567890
                   </td>
                   <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
                     contact@globaltech.com
                   </td>
                   <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    Electronics, Components
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-600 h-[72px] px-4 py-2 w-60 text-[#56618f] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#d2d6e4]">
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-120 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    SUP002
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0f111a] text-sm font-normal leading-normal">
-                    Industrial Parts Inc.
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    sales@industrialparts.com
+                    No. 123, Main Street, Anytown, USA
                   </td>
                   <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    Machinery Parts, Tools
+                    5 orders
                   </td>
                   <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-600 h-[72px] px-4 py-2 w-60 text-[#56618f] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#d2d6e4]">
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-120 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    SUP003
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0f111a] text-sm font-normal leading-normal">
-                    Chemical Solutions Ltd.
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    info@chemicalsolutions.com
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    Chemicals, Raw Materials
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-600 h-[72px] px-4 py-2 w-60 text-[#56618f] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#d2d6e4]">
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-120 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    SUP004
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0f111a] text-sm font-normal leading-normal">
-                    Packaging Solutions Co.
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    support@packagingsolutions.com
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    Packaging Materials
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-600 h-[72px] px-4 py-2 w-60 text-[#56618f] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#d2d6e4]">
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-120 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    SUP005
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0f111a] text-sm font-normal leading-normal">
-                    Office Supplies Depot
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    orders@officesupplies.com
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480 h-[72px] px-4 py-2 w-[400px] text-[#56618f] text-sm font-normal leading-normal">
-                    Stationery, Office Equipment
-                  </td>
-                  <td className="table-8e74029e-851c-4cb2-8247-11a915621f7b-column-600 h-[72px] px-4 py-2 w-60 text-[#56618f] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                      />
+                    </svg>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <style
-            dangerouslySetInnerHTML={{
-              __html:
-                "\n                          @container(max-width:120px){.table-8e74029e-851c-4cb2-8247-11a915621f7b-column-120{display: none;}}\n                @container(max-width:240px){.table-8e74029e-851c-4cb2-8247-11a915621f7b-column-240{display: none;}}\n                @container(max-width:360px){.table-8e74029e-851c-4cb2-8247-11a915621f7b-column-360{display: none;}}\n                @container(max-width:480px){.table-8e74029e-851c-4cb2-8247-11a915621f7b-column-480{display: none;}}\n                @container(max-width:600px){.table-8e74029e-851c-4cb2-8247-11a915621f7b-column-600{display: none;}}\n              ",
-            }}
-          />
         </div>
       </div>
     </>

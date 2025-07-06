@@ -44,7 +44,6 @@ function Customer() {
                     className="h-14 p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
                 </label>
-
                 {/* Email */}
                 <label className="flex flex-col">
                   <span className="text-base font-semibold text-[#0f111a] pb-2">
@@ -55,7 +54,6 @@ function Customer() {
                     className="h-14 p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
                 </label>
-
                 {/* Phone Number */}
                 <label className="flex flex-col">
                   <span className="text-base font-semibold text-[#0f111a] pb-2">
@@ -65,8 +63,16 @@ function Customer() {
                     placeholder="Enter phone number"
                     className="h-14 p-4 rounded-xl  border border-[#ced3e9]  bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                   />
+                </label>{" "}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0f111a] pb-2">
+                    GSTIN
+                  </span>
+                  <input
+                    placeholder="Enter GSTIN"
+                    className="h-14 p-4 rounded-xl  border border-[#ced3e9]  bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                  />
                 </label>
-
                 {/* Address (span 2 columns) */}
                 <label className="flex flex-col md:col-span-2">
                   <span className="text-base font-semibold text-[#0f111a] pb-2">
@@ -77,17 +83,7 @@ function Customer() {
                     className="min-h-[100px] p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
                   />
                 </label>
-
                 {/* Notes (span 2 columns) */}
-                <label className="flex flex-col md:col-span-2">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Notes
-                  </span>
-                  <textarea
-                    placeholder="Additional details about the customer"
-                    className="min-h-[120px] p-4 rounded-xl   border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
-                  />
-                </label>
               </div>
 
               {/* Buttons */}
@@ -111,7 +107,7 @@ function Customer() {
           <label className="flex flex-col min-w-40 h-12 w-full">
             <div className="flex w-full flex-1 items-stretch rounded-xl h-full">
               <div
-                className="text-[#47579e] flex border-none bg-[#e6e9f4] items-center justify-center pl-4 rounded-l-xl border-r-0"
+                className="text-[#47579e] flex border-none bg-white items-center justify-center pl-4 rounded-l-xl border-r-0"
                 data-icon="MagnifyingGlass"
                 data-size="24px"
                 data-weight="regular"
@@ -128,7 +124,7 @@ function Customer() {
               </div>
               <input
                 placeholder="Search customers..."
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d0f1c] focus:outline-0 focus:ring-0 border-none bg-[#e6e9f4] focus:border-none h-full placeholder:text-[#47579e] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d0f1c] focus:outline-0 focus:ring-0 border-none bg-white focus:border-none h-full placeholder:text-[#47579e] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
                 defaultValue=""
               />
             </div>
@@ -140,16 +136,22 @@ function Customer() {
               <thead>
                 <tr className="bg-[#f8f9fc]">
                   <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-120 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    Customer ID
-                  </th>
-                  <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-240 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    Name
+                    Customer Name
                   </th>
                   <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-360 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    Contact
+                    Contact Number
                   </th>
                   <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    Orders Summary
+                    Email
+                  </th>
+                  <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
+                    Address
+                  </th>
+                  <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
+                    Orders
+                  </th>
+                  <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
+                    Amount
                   </th>
                   <th className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-600 px-4 py-3 text-left text-[#0d0f1c] w-60  text-sm font-medium leading-normal">
                     Actions
@@ -159,98 +161,43 @@ function Customer() {
               <tbody>
                 <tr className="border-t border-t-[#ced3e9]">
                   <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    CUST001
+                    Alice Johnson
                   </td>
                   <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Alice Johnson
+                    +1234567890
                   </td>
                   <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
                     alice.johnson@email.com
                   </td>
                   <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
+                    No. 123, Main Street, Anytown, USA
+                  </td>
+                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
                     5 orders
                   </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-600 h-[72px] px-4 py-2 w-60 text-[#47579e] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#ced3e9]">
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    CUST002
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Robert Smith
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    robert.smith@email.com
-                  </td>
                   <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    12 orders
+                    $100
                   </td>
                   <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-600 h-[72px] px-4 py-2 w-60 text-[#47579e] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#ced3e9]">
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    CUST003
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Emily Davis
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    emily.davis@email.com
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    8 orders
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-600 h-[72px] px-4 py-2 w-60 text-[#47579e] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#ced3e9]">
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    CUST004
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Michael Brown
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    michael.brown@email.com
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    3 orders
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-600 h-[72px] px-4 py-2 w-60 text-[#47579e] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#ced3e9]">
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    CUST005
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Sarah Clark
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    sarah.clark@email.com
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47579e] text-sm font-normal leading-normal">
-                    10 orders
-                  </td>
-                  <td className="table-a7b2dab7-306e-4074-9f70-a50105efc129-column-600 h-[72px] px-4 py-2 w-60 text-[#47579e] text-sm font-bold leading-normal tracking-[0.015em]">
-                    Edit | Delete
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                      />
+                    </svg>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <style
-            dangerouslySetInnerHTML={{
-              __html:
-                "\n                          @container(max-width:120px){.table-a7b2dab7-306e-4074-9f70-a50105efc129-column-120{display: none;}}\n                @container(max-width:240px){.table-a7b2dab7-306e-4074-9f70-a50105efc129-column-240{display: none;}}\n                @container(max-width:360px){.table-a7b2dab7-306e-4074-9f70-a50105efc129-column-360{display: none;}}\n                @container(max-width:480px){.table-a7b2dab7-306e-4074-9f70-a50105efc129-column-480{display: none;}}\n                @container(max-width:600px){.table-a7b2dab7-306e-4074-9f70-a50105efc129-column-600{display: none;}}\n              ",
-            }}
-          />
         </div>
       </div>
     </div>

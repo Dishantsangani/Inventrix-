@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import AddProducts from "../Products/AddProducts";
+import Productsimg from "../../assets/productimage/product.jpg";
+import Productsimg2 from "../../assets/productimage/laptop.jpg";
+import Productsimg3 from "../../assets/productimage/ipad.jpeg";
 
 function Products() {
   const [model, setmodel] = useState(false);
@@ -23,7 +25,7 @@ function Products() {
           <label className="flex flex-col min-w-40 h-12 w-full">
             <div className="flex w-full flex-1 items-stretch rounded-xl h-full">
               <div
-                className="text-[#47569e] flex border-none bg-[#e6e9f4] items-center justify-center pl-4 rounded-l-xl border-r-0"
+                className="text-[#47569e] flex border-none bg-white items-center justify-center pl-4 rounded-l-xl border-r-0"
                 data-icon="MagnifyingGlass"
                 data-size="24px"
                 data-weight="regular"
@@ -40,7 +42,7 @@ function Products() {
               </div>
               <input
                 placeholder="Search products"
-                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d0f1c] focus:outline-0 focus:ring-0 border-none bg-[#e6e9f4] focus:border-none h-full placeholder:text-[#47569e] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d0f1c] focus:outline-0 focus:ring-0 border-none bg-white focus:border-none h-full placeholder:text-[#47569e] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
                 defaultValue=""
               />
             </div>
@@ -52,74 +54,135 @@ function Products() {
               <thead>
                 <tr className="bg-[#f8f9fc]">
                   <th className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-120 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    SKU
+                    Img
                   </th>
                   <th className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-240 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    Name
+                    Product
                   </th>
                   <th className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-360 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    Category
+                    Quantity
                   </th>
                   <th className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
-                    Stock Level
+                    Price
+                  </th>
+                  <th className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
+                    Tax rate
+                  </th>
+                  <th className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 px-4 py-3 text-left text-[#0d0f1c] w-[400px] text-sm font-medium leading-normal">
+                    Action
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-t border-t-[#ced2e9]">
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    SKU141
+                    <img
+                      src={Productsimg}
+                      alt="Product"
+                      className="w-10 h-10"
+                    />
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Ceramic Coffee Mug
+                    Apple iphone 14
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    Kitchenware
+                    4
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    110
+                    $110
+                  </td>{" "}
+                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
+                    10%
+                  </td>
+                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                      />
+                    </svg>
                   </td>
                 </tr>
                 <tr className="border-t border-t-[#ced2e9]">
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    SKU151
+                    <img
+                      src={Productsimg2}
+                      alt="Product"
+                      className="w-10 h-10"
+                    />
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Wooden Coasters
+                    laptop
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    Home Decor
+                    10
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    130
+                    $130
+                  </td>
+                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
+                    12%
+                  </td>
+                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                      />
+                    </svg>
                   </td>
                 </tr>
                 <tr className="border-t border-t-[#ced2e9]">
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    SKU161
+                    <img
+                      src={Productsimg3}
+                      alt="Product"
+                      className="w-10 h-10"
+                    />
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Cotton Tote Bag
+                    Apple ipad
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    Accessories
+                    10
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    160
-                  </td>
-                </tr>
-                <tr className="border-t border-t-[#ced2e9]">
-                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    SKU171
-                  </td>
-                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-240 h-[72px] px-4 py-2 w-[400px] text-[#0d0f1c] text-sm font-normal leading-normal">
-                    Glass Food Storage Containers
-                  </td>
-                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-360 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    Kitchenware
+                    $160
                   </td>
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
-                    140
+                    18%
+                  </td>
+                  <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-480 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                      />
+                    </svg>
                   </td>
                 </tr>
               </tbody>
@@ -154,7 +217,6 @@ function Products() {
                   className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                 />
               </label>
-
               {/* Category */}
               <label className="flex flex-col">
                 <span className="text-base font-semibold text-[#0d0f1c] pb-2">
@@ -162,11 +224,16 @@ function Products() {
                 </span>
                 <select className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]">
                   <option value="">Select category</option>
-                  <option value="two">Two</option>
-                  <option value="three">Three</option>
+                  <option value="two">Electronics</option>
+                  <option value="three">Apparel</option>
+                  <option value="four">Home & Garden</option>
+                  <option value="five">Toys & Games</option>
+                  <option value="six">Sports & Outdoors</option>
+                  <option value="seven">Health & Beauty</option>
+                  <option value="eight">Automotive</option>
+                  <option value="nine">Other</option>
                 </select>
               </label>
-
               {/* Supplier */}
               <label className="flex flex-col">
                 <span className="text-base font-semibold text-[#0d0f1c] pb-2">
@@ -178,7 +245,6 @@ function Products() {
                   <option value="three">Three</option>
                 </select>
               </label>
-
               {/* Purchase Price */}
               <label className="flex flex-col">
                 <span className="text-base font-semibold text-[#0d0f1c] pb-2">
@@ -189,7 +255,6 @@ function Products() {
                   className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                 />
               </label>
-
               {/* Selling Price */}
               <label className="flex flex-col">
                 <span className="text-base font-semibold text-[#0d0f1c] pb-2">
@@ -200,7 +265,6 @@ function Products() {
                   className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                 />
               </label>
-
               {/* Stock Quantity */}
               <label className="flex flex-col">
                 <span className="text-base font-semibold text-[#0d0f1c] pb-2">
@@ -211,7 +275,6 @@ function Products() {
                   className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
                 />
               </label>
-
               {/* Product Image */}
               <label className="flex flex-col">
                 <span className="text-base font-semibold text-[#0d0f1c] pb-2">
@@ -221,12 +284,20 @@ function Products() {
                   type="file"
                   className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#4264fa] file:text-white hover:file:bg-[#2e4eda] cursor-pointer"
                 />
+              </label>{" "}
+              <label className="flex flex-col">
+                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                  Tax Rate
+                </span>
+                <input
+                  placeholder="Enter Tax Rate"
+                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                />
               </label>
-
               {/* Description (Full Width) */}
               <label className="flex flex-col md:col-span-2">
                 <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Description
+                  Product Description
                 </span>
                 <textarea
                   placeholder="Enter product description"
