@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 function Supplier() {
@@ -50,6 +51,14 @@ function Supplier() {
   const handlesubmit = (e) => {
     e.preventDefault();
     if (!validation()) return;
+    try {
+      axios
+        .post("http://localhost:5000/auth/addsupplier")
+        .then((res) => console.log("API data", res.data))
+        .catch((err) => console.log("Api error", err));
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 
   return (

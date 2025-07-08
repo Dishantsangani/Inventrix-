@@ -128,7 +128,7 @@ function Products() {
     if (!validateForm()) return;
     try {
       axios
-        .post("http://localhost:5000/auth/", formdata)
+        .post("http://localhost:5000/auth/addproduct", formdata)
         .then((res) => console.log("Data sended", res.data))
         .catch((err) => console.log("Api Error", err));
     } catch (error) {

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 function Order() {
@@ -80,6 +81,14 @@ function Order() {
   const handlesubmit = (e) => {
     e.preventDefault();
     if (!validatation()) return;
+    try {
+      axios
+        .post("http://localhost:5000/auth/createorder", formdata)
+        .then((res) => console.log("Data sended", res.data))
+        .catch((err) => console.log("Api Error", err));
+    } catch (error) {
+      console.log("error: ", error);
+    }
     console.log("Form submitted successfully:", formdata);
   };
 

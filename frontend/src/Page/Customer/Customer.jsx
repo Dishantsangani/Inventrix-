@@ -53,7 +53,7 @@ function Customer() {
     if (!validation()) return;
     try {
       axios
-        .post("")
+        .post("http://localhost:5000/auth/addcustomer")
         .then((res) => console.log("API data", res.data))
         .catch((err) => console.log("Api error", err));
     } catch (error) {
