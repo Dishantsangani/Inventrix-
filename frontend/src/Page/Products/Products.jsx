@@ -1,11 +1,141 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Productsimg from "../../assets/productimage/product.jpg";
 import Productsimg2 from "../../assets/productimage/laptop.jpg";
 import Productsimg3 from "../../assets/productimage/ipad.jpeg";
 
 function Products() {
   const [model, setmodel] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [formdata, setformdata] = useState({
+    productname: "",
+    category: "",
+    supplier: "",
+    purchaseprice: "",
+    sellingprice: "",
+    stockquantity: "",
+    taxrate: "",
+    productImage: null,
+  });
 
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setformdata({ ...formdata, [name]: value });
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        setErrors((prev) => ({
+          ...prev,
+          productImage: "Only image files are allowed",
+        }));
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        setErrors((prev) => ({
+          ...prev,
+          productImage: "Image size must be less than 5MB",
+        }));
+        return;
+      }
+    }
+
+    setformdata((prev) => ({
+      ...prev,
+      productImage: file,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      productImage: "",
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Product Name
+    if (!formdata.productname.trim()) {
+      newErrors.productname = "Please Enter ProductName";
+    } else if (formdata.productname.length < 5) {
+      newErrors.productname = " ProductName Minmum 5 Char";
+    }
+    // PurchasePrice
+    if (
+      formdata.purchaseprice === "" || // empty input
+      isNaN(formdata.purchaseprice) || // not a number
+      parseFloat(formdata.purchaseprice) <= 0 // 0 or less
+    ) {
+      newErrors.purchaseprice = "Purchase price must be greater than 0";
+    }
+
+    // SellingPrice
+    if (
+      formdata.sellingprice === "" || // empty input
+      isNaN(formdata.sellingprice) || // not a number
+      parseFloat(formdata.sellingprice) <= 0 // 0 or less
+    ) {
+      newErrors.sellingprice = "sellingprice price must be greater than 0";
+    }
+
+    // StockQuantity
+    if (
+      formdata.stockquantity === "" || // empty input
+      isNaN(formdata.stockquantity) || // not a number
+      parseFloat(formdata.stockquantity) <= 0 // 0 or less
+    ) {
+      newErrors.stockquantity = "stockquantity price must be greater than 0";
+    }
+    // TaxRate
+    if (
+      formdata.taxrate === "" || // empty input
+      isNaN(formdata.taxrate) || // not a number
+      parseFloat(formdata.taxrate) <= 0 // 0 or less
+    ) {
+      newErrors.taxrate = "taxrate price must be greater than 0";
+    }
+    // Category
+    if (!formdata.category) {
+      newErrors.category = "Please select a category";
+    }
+    // Supplier
+    if (!formdata.supplier) {
+      newErrors.supplier = "Please select a supplier";
+    }
+
+    // Image Validation
+    if (!formdata.productImage) {
+      newErrors.productImage = "Please upload a product image";
+    } else if (!formdata.productImage.type.startsWith("image/")) {
+      newErrors.productImage = "Only image files are allowed";
+    } else if (formdata.productImage.size > 5 * 1024 * 1024) {
+      newErrors.productImage = "Image size must be less than 5MB";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const submitdata = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    try {
+      axios
+        .post("http://localhost:5000/auth/", formdata)
+        .then((res) => console.log("Data sended", res.data))
+        .catch((err) => console.log("Api Error", err));
+    } catch (error) {
+      console.log("error: ", error);
+    }
+    console.log("formdata: ", formdata);
+  };
   return (
     <>
       <div className="layout-content-container flex flex-col max-w-[960px]">
@@ -111,6 +241,7 @@ function Products() {
                     </svg>
                   </td>
                 </tr>
+
                 <tr className="border-t border-t-[#ced2e9]">
                   <td className="table-ed0a4a2e-b31f-4b65-9efe-4c152fdab854-column-120 h-[72px] px-4 py-2 w-[400px] text-[#47569e] text-sm font-normal leading-normal">
                     <img
@@ -198,126 +329,263 @@ function Products() {
           aria-modal="true"
         >
           <div className="w-full mt-5 px-6 py-6 max-w-[960px] bg-white rounded-2xl shadow-2xl overflow-y-auto max-h-screen">
-            {/* Header */}
-            <div className="mb-8">
-              <h1 className="text-[#0d0f1c] text-3xl font-bold">
-                Add New Product
-              </h1>
-            </div>
+            <form onSubmit={submitdata}>
+              {/* Header */}
+              <div className="mb-8">
+                <h1 className="text-[#0d0f1c] text-3xl font-bold">
+                  Add New Product
+                </h1>
+              </div>
 
-            {/* Grid Form */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Product Name */}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Product Name
-                </span>
-                <input
-                  placeholder="Enter product name"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                />
-              </label>
-              {/* Category */}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Category
-                </span>
-                <select className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]">
-                  <option value="">Select category</option>
-                  <option value="two">Electronics</option>
-                  <option value="three">Apparel</option>
-                  <option value="four">Home & Garden</option>
-                  <option value="five">Toys & Games</option>
-                  <option value="six">Sports & Outdoors</option>
-                  <option value="seven">Health & Beauty</option>
-                  <option value="eight">Automotive</option>
-                  <option value="nine">Other</option>
-                </select>
-              </label>
-              {/* Supplier */}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Supplier
-                </span>
-                <select className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]">
-                  <option value="">Select supplier</option>
-                  <option value="two">Two</option>
-                  <option value="three">Three</option>
-                </select>
-              </label>
-              {/* Purchase Price */}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Purchase Price
-                </span>
-                <input
-                  placeholder="Enter purchase price"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                />
-              </label>
-              {/* Selling Price */}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Selling Price
-                </span>
-                <input
-                  placeholder="Enter selling price"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                />
-              </label>
-              {/* Stock Quantity */}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Stock Quantity
-                </span>
-                <input
-                  placeholder="Enter stock quantity"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                />
-              </label>
-              {/* Product Image */}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Upload Product Image
-                </span>
-                <input
-                  type="file"
-                  className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#4264fa] file:text-white hover:file:bg-[#2e4eda] cursor-pointer"
-                />
-              </label>{" "}
-              <label className="flex flex-col">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Tax Rate
-                </span>
-                <input
-                  placeholder="Enter Tax Rate"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                />
-              </label>
-              {/* Description (Full Width) */}
-              <label className="flex flex-col md:col-span-2">
-                <span className="text-base font-semibold text-[#0d0f1c] pb-2">
-                  Product Description
-                </span>
-                <textarea
-                  placeholder="Enter product description"
-                  className="min-h-[120px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
-                />
-              </label>
-            </div>
+              {/* Grid Form */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Product Name */}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Product Name
+                  </span>
+                  <input
+                    type="text"
+                    name="productname"
+                    onChange={handlechange}
+                    placeholder="Enter product name"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.productname ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.productname
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                  />
+                  {errors.productname && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.productname}
+                    </span>
+                  )}
+                </label>
+                {/* Category */}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Category
+                  </span>
+                  <select
+                    name="category"
+                    value={formdata.category}
+                    onChange={handlechange}
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.category ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.category
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                  >
+                    <option value="">Select category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="apparel">Apparel</option>
+                    <option value="home-garden">Home & Garden</option>
+                    <option value="toys-games">Toys & Games</option>
+                    <option value="sports-outdoors">Sports & Outdoors</option>
+                    <option value="health-beauty">Health & Beauty</option>
+                    <option value="automotive">Automotive</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {errors.category && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.category}
+                    </span>
+                  )}
+                  {/* Error Message */}
+                </label>
+                {/* Supplier */}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Supplier
+                  </span>
+                  <select
+                    name="supplier"
+                    value={formdata.supplier}
+                    onChange={handlechange}
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.supplier ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.supplier
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                  >
+                    <option value="">Select supplier</option>
+                    <option value="two">Two</option>
+                    <option value="three">Three</option>
+                  </select>
+                  {errors.supplier && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.supplier}
+                    </span>
+                  )}
+                </label>
+                {/* Purchase Price */}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Purchase Price
+                  </span>
+                  <input
+                    type="number"
+                    name="purchaseprice"
+                    min="1"
+                    value={formdata.purchaseprice}
+                    onChange={handlechange}
+                    placeholder="Enter purchase price"
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.purchaseprice
+                        ? "border-red-500"
+                        : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.purchaseprice
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                  />
+                  {errors.purchaseprice && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.purchaseprice}
+                    </span>
+                  )}
+                </label>
+                {/* Selling Price */}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Selling Price
+                  </span>
+                  <input
+                    type="number"
+                    name="sellingprice"
+                    min="1"
+                    value={formdata.sellingprice}
+                    onChange={handlechange}
+                    placeholder="Enter selling price"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.sellingprice
+                        ? "border-red-500"
+                        : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.sellingprice
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                  />
+                  {errors.sellingprice && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.sellingprice}
+                    </span>
+                  )}
+                </label>
+                {/* Stock Quantity */}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Stock Quantity
+                  </span>
+                  <input
+                    type="number"
+                    name="stockquantity"
+                    min="1"
+                    value={formdata.stockquantity}
+                    onChange={handlechange}
+                    placeholder="Enter stock quantity"
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.stockquantity
+                        ? "border-red-500"
+                        : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.stockquantity
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                  />
+                  {errors.stockquantity && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.stockquantity}
+                    </span>
+                  )}
+                </label>
+                {/* Product Image */}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Upload Product Image
+                  </span>
+                  <input
+                    type="file"
+                    name="productImage"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#4264fa] file:text-white hover:file:bg-[#2e4eda] cursor-pointer"
+                  />
 
-            {/* Buttons */}
-            <div className="flex justify-end gap-4 mt-8">
-              <button
-                onClick={() => setmodel(!model)}
-                className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] transition text-[white] text-sm font-bold"
-              >
-                Close
-              </button>
-              <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] transition text-white text-sm font-bold">
-                Add Product
-              </button>
-            </div>
+                  {errors.productImage && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.productImage}
+                    </span>
+                  )}
+                </label>{" "}
+                <label className="flex flex-col">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Tax Rate
+                  </span>
+                  <input
+                    type="number"
+                    name="taxrate"
+                    min="1"
+                    value={formdata.taxrate}
+                    onChange={handlechange}
+                    placeholder="Enter Tax Rate"
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.taxrate ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.taxrate
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                  />
+
+                  {errors.taxrate && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.taxrate}
+                    </span>
+                  )}
+                </label>
+                {/* Description (Full Width) */}
+                <label className="flex flex-col md:col-span-2">
+                  <span className="text-base font-semibold text-[#0d0f1c] pb-2">
+                    Product Description{" "}
+                    <span className="text-[#7e818f] ">(Optional)</span>
+                  </span>
+                  <textarea
+                    placeholder="Enter product description"
+                    className="min-h-[120px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] shadow-sm placeholder:text-[#47579e] text-[#0d0f1c] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
+                  />
+                </label>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex justify-end gap-4 mt-8">
+                <button
+                  onClick={() => setmodel(!model)}
+                  className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] transition text-[white] text-sm font-bold"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] transition text-white text-sm font-bold"
+                >
+                  Add Product
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       ) : (

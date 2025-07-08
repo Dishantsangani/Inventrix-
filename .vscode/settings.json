@@ -1,4 +1,8 @@
 {
   "zenMode.fullScreen": false,
-  "pdf-preview.default.sidebar": true
+  "pdf-preview.default.sidebar": true,
+  "search.showLineNumbers": true,
+  "notebook.lineNumbers": "on",
+  "codesnap.realLineNumbers": true,
+  "editor.lineNumbers": "on"
 }

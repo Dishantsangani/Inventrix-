@@ -1,8 +1,88 @@
 import React, { useState } from "react";
-import AddOrder from "./AddOrder";
 
 function Order() {
   const [model, setmodel] = useState(false);
+  const [errors, seterrors] = useState({});
+
+  const [formdata, setformdata] = useState({
+    customername: "",
+    orderdate: "",
+    product: "",
+    totalamount: "",
+    totalquantity: "",
+    taxrate: "",
+    paymentmethod: "",
+  });
+
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setformdata({ ...formdata, [name]: value });
+  };
+
+  const validatation = () => {
+    const newErrors = {};
+
+    // ✅ Customer Name
+    if (!formdata.customername.trim()) {
+      newErrors.customername = "Please Enter Customername";
+    } else if (formdata.customername.length < 5) {
+      newErrors.customername = "Please Enter Customername min 5 Char";
+    }
+    if (!formdata.product.trim()) {
+      newErrors.product = "Please Enter product";
+    } else if (formdata.product.length < 5) {
+      newErrors.product = "Please Enter product min 5 Char";
+    }
+
+    if (
+      formdata.totalamount === "" || // empty input
+      isNaN(formdata.totalamount) || // not a number
+      parseFloat(formdata.totalamount) <= 0 // 0 or less
+    ) {
+      newErrors.totalamount = "Totalamount price must be greater than 0";
+    }
+    if (
+      formdata.totalquantity === "" || // empty input
+      isNaN(formdata.totalquantity) || // not a number
+      parseFloat(formdata.totalquantity) <= 0 // 0 or less
+    ) {
+      newErrors.totalquantity = "totalquantity price must be greater than 0";
+    }
+
+    // ✅ Tax Rate
+    if (!formdata.taxrate) {
+      newErrors.taxrate = "Please select a tax rate";
+    }
+    if (!formdata.paymentmethod) {
+      newErrors.paymentmethod = "Please select a paymentmethod";
+    }
+
+    // ✅ Order Date
+    if (!formdata.orderdate) {
+      newErrors.orderdate = "Please select a order date";
+    } else {
+      const selectedDate = new Date(formdata.orderdate);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // remove time
+
+      if (selectedDate < today) {
+        newErrors.orderdate = "Order date cannot be in the past";
+      }
+    }
+
+    // ✅ Set all errors at once
+    seterrors(newErrors);
+
+    // ✅ Return overall validity
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    if (!validatation()) return;
+    console.log("Form submitted successfully:", formdata);
+  };
+
   return (
     <div className="max-w-[960px]">
       <div className="bg-white p-8 w-full rounded-lg max-w-5xl mx-auto">
@@ -24,120 +104,227 @@ function Order() {
           aria-modal="true"
         >
           <div className="w-full rounded-xl max-w-3xl bg-white shadow-lg overflow-y-auto max-h-[90vh]">
-            {/* Header */}
-            <div className="flex justify-between p-4 border-b border-gray-200">
-              <p className="text-[#0d0f1c] text-[32px] font-bold">New Order</p>
-            </div>
+            <form onSubmit={handlesubmit}>
+              {/* Header */}
 
-            {/* Row 1: Customer & Order Date */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-3">
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Customer Name
+              <div className="flex justify-between p-4 border-b border-gray-200">
+                <p className="text-[#0d0f1c] text-[32px] font-bold">
+                  New Order
                 </p>
-                <input
-                  type="text"
-                  placeholder="Enter Customer Name"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
-                />
-              </label>
+              </div>
+              {/* Row 1: Customer & Order Date */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-3">
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Customer Name
+                  </p>
+                  <input
+                    type="text"
+                    name="customername"
+                    onChange={handlechange}
+                    value={formdata.customername}
+                    placeholder="Enter Customer Name"
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.customername
+                        ? "border-red-500"
+                        : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none`}
+                  />
+                  {errors.customername && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.customername}
+                    </span>
+                  )}
+                </label>
 
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Order Date
-                </p>
-                <input
-                  placeholder="MM/DD/YYYY"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
-                />
-              </label>
-            </div>
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Order Date
+                  </p>
+                  <input
+                    type="date"
+                    name="date"
+                    min={new Date().toISOString().split("T")[0]}
+                    value={formdata.orderdate}
+                    onChange={handlechange}
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.orderdate ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] text-base text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                      errors.orderdate
+                        ? "focus:ring-red-400"
+                        : "focus:ring-[#4264fa]"
+                    }`}
+                  />
+                  {errors.orderdate && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.orderdate}
+                    </span>
+                  )}
+                </label>
+              </div>
 
-            {/* Row 2: Product, Total Amount, Total Quantity */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 py-3">
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Product
-                </p>
-                <input
-                  placeholder="Enter Product"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
-                />
-              </label>
+              {/* Row 2: Product, Total Amount, Total Quantity */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 py-3">
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Product
+                  </p>
+                  <input
+                    type="text"
+                    name="product"
+                    value={formdata.product}
+                    onChange={handlechange}
+                    placeholder="Enter Product"
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.product ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none`}
+                  />
+                  {errors.product && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.product}
+                    </span>
+                  )}
+                </label>
 
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Total Amount
-                </p>
-                <input
-                  placeholder="Enter amount"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
-                />
-              </label>
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Total Amount
+                  </p>
+                  <input
+                    type="number"
+                    min="1"
+                    name="totalamount"
+                    value={formdata.totalamount}
+                    onChange={handlechange}
+                    placeholder="Enter amount"
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.totalamount ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none`}
+                  />
+                  {errors.totalamount && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.totalamount}
+                    </span>
+                  )}
+                </label>
 
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Total Quantity
-                </p>
-                <input
-                  placeholder="Enter quantity"
-                  className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
-                />
-              </label>
-            </div>
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Total Quantity
+                  </p>
+                  <input
+                    type="number"
+                    min="1"
+                    name="totalquantity"
+                    value={formdata.totalquantity}
+                    onChange={handlechange}
+                    placeholder="Enter quantity"
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.totalquantity
+                        ? "border-red-500"
+                        : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none`}
+                  />
+                  {errors.totalquantity && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.totalquantity}
+                    </span>
+                  )}
+                </label>
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-3">
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Tax Rate
-                </p>
-                <select className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none">
-                  <option value="10">10%</option>
-                  <option value="18">18%</option>
-                  <option value="28">28%</option>
-                </select>
-              </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-3">
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Tax Rate
+                  </p>
+                  <select
+                    name="taxrate"
+                    value={formdata.taxrate}
+                    onChange={handlechange}
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.taxrate ? "border-red-500" : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none`}
+                  >
+                    <option value="">Select tax rate</option>{" "}
+                    {/* 🔁 Default unselected */}
+                    <option value="10">10%</option>
+                    <option value="18">18%</option>
+                    <option value="28">28%</option>
+                  </select>
 
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Payment Method
-                </p>
-                <select className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none">
-                  <option value="cash">Cash</option>
-                  <option value="card">Card</option>
-                  <option value="upi">UPI</option>
-                </select>
-              </label>
-              <button className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none">
-                Pay Now
-              </button>
-            </div>
+                  {errors.taxrate && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.taxrate}
+                    </span>
+                  )}
+                </label>
 
-            {/* Row 3: Notes */}
-            <div className="px-4 py-3">
-              <label className="flex flex-col">
-                <p className="text-base font-medium text-[#0d0f1c] pb-2">
-                  Notes
-                </p>
-                <textarea
-                  placeholder="Additional details"
-                  className="min-h-36 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none resize-none"
-                />
-              </label>
-            </div>
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Payment Method
+                  </p>
+                  <select
+                    name="paymentmethod"
+                    value={formdata.paymentmethod}
+                    onChange={handlechange}
+                    // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none"
+                    className={`h-14 p-4 rounded-xl border ${
+                      errors.paymentmethod
+                        ? "border-red-500"
+                        : "border-[#ced3e9]"
+                    } bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none`}
+                  >
+                    <option value="">Select Payment Method</option>
+                    <option value="cash">Cash</option>
+                    <option value="card">Card</option>
+                    <option value="upi">UPI</option>
+                  </select>
 
-            {/* Action Buttons */}
-            <div className="flex justify-end px-4 py-6 gap-4 border-t border-gray-200">
-              <button
-                onClick={() => setmodel(!model)}
-                className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] transition text-[white] text-sm font-bold"
-              >
-                Cancel
-              </button>
-              <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] transition text-white text-sm font-bold">
-                Create Order
-              </button>
-            </div>
+                  {errors.paymentmethod && (
+                    <span className="text-sm text-red-500 mt-1">
+                      {errors.paymentmethod}
+                    </span>
+                  )}
+                </label>
+                <button className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none">
+                  Pay Now
+                </button>
+              </div>
+
+              {/* Row 3: Notes */}
+              <div className="px-4 py-3">
+                <label className="flex flex-col">
+                  <p className="text-base font-medium text-[#0d0f1c] pb-2">
+                    Notes
+                  </p>
+                  <textarea
+                    placeholder="Additional details"
+                    className="min-h-36 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-base text-[#0d0f1c] focus:outline-none resize-none"
+                  />
+                </label>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end px-4 py-6 gap-4 border-t border-gray-200">
+                <button
+                  onClick={() => setmodel(!model)}
+                  className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] transition text-[white] text-sm font-bold"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] transition text-white text-sm font-bold"
+                >
+                  Create Order
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       ) : (

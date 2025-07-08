@@ -140,7 +140,7 @@ function Sidebar() {
                   }
                 >
                   <div
-                    class="text-[#0f111a]"
+                    className="text-[#0f111a]"
                     data-icon="Truck"
                     data-size="24px"
                     data-weight="fill"
