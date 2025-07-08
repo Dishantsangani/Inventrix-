@@ -1,7 +1,66 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 function Customer() {
   const [model, setmodel] = useState(false);
+  const [errors, seterrors] = useState({});
+
+  const [formdata, setformdata] = useState({
+    customername: "",
+    customeremail: "",
+    customerphonenumber: "",
+    customergst: "",
+    customeraddress: "",
+  });
+
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setformdata({ ...formdata, [name]: value });
+  };
+
+  const validation = () => {
+    const newerror = {};
+    if (!formdata.customername.trim()) {
+      newerror.customername = "Please Enter Customer Name";
+    } else if (formdata.customername.length < 5) {
+      newerror.customername = "Please Enter Customer Name Min 5 Char";
+    }
+    if (!formdata.customeremail.trim()) {
+      newerror.customeremail = "Please Enter Customer Email";
+    } else if (!/\S+@\S+\.\S+/.test(formdata.customeremail)) {
+      newerror.customeremail = "Please Enter Valid Email ";
+    }
+    if (!formdata.customerphonenumber.trim()) {
+      newerror.customerphonenumber = "Please Enter Customer PhoneNumber ";
+    } else if (formdata.customerphonenumber.length < 10) {
+      newerror.customerphonenumber = "Please Enter 10 Digit PhoneNumber ";
+    }
+    if (!formdata.customergst.trim()) {
+      newerror.customergst = "Please Enter Customer GSTIN ";
+    } else if (formdata.customergst.length < 15) {
+      newerror.customergst = "Please Enter 15 Digit Valid  GSTIN";
+    }
+    if (!formdata.customeraddress.trim()) {
+      newerror.customeraddress = "Please Enter Customer Address ";
+    } else if (formdata.customeraddress.length < 15) {
+      newerror.customeraddress = "Please Enter Customer Address Min 15 Char";
+    }
+    seterrors(newerror);
+  };
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    if (!validation()) return;
+    try {
+      axios
+        .post("")
+        .then((res) => console.log("API data", res.data))
+        .catch((err) => console.log("Api error", err));
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+
   return (
     <div>
       <div className="layout-content-container flex flex-col max-w-[960px] flex-1">
@@ -26,78 +85,173 @@ function Customer() {
           >
             <div className="w-full max-w-[800px] bg-white rounded-xl shadow-2xl overflow-y-auto max-h-[90vh]">
               {/* Header */}
-              <div className="flex justify-between items-center p-6 border-b border-[#ced3e9]">
-                <p className="text-[#0f111a] text-3xl font-bold leading-tight">
-                  Add New Customer
-                </p>
-              </div>
+              <form onSubmit={handlesubmit}>
+                <div className="flex justify-between items-center p-6 border-b border-[#ced3e9]">
+                  <p className="text-[#0f111a] text-3xl font-bold leading-tight">
+                    Add New Customer
+                  </p>
+                </div>
 
-              {/* Form Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 py-6">
-                {/* Customer Name */}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Customer Name
-                  </span>
-                  <input
-                    placeholder="Enter customer name"
-                    className="h-14 p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>
-                {/* Email */}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Email
-                  </span>
-                  <input
-                    placeholder="Enter email address"
-                    className="h-14 p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>
-                {/* Phone Number */}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Phone Number
-                  </span>
-                  <input
-                    placeholder="Enter phone number"
-                    className="h-14 p-4 rounded-xl  border border-[#ced3e9]  bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>{" "}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    GSTIN
-                  </span>
-                  <input
-                    placeholder="Enter GSTIN"
-                    className="h-14 p-4 rounded-xl  border border-[#ced3e9]  bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>
-                {/* Address (span 2 columns) */}
-                <label className="flex flex-col md:col-span-2">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Address
-                  </span>
-                  <textarea
-                    placeholder="Enter customer address"
-                    className="min-h-[100px] p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
-                  />
-                </label>
-                {/* Notes (span 2 columns) */}
-              </div>
+                {/* Form Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 py-6">
+                  {/* Customer Name */}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Customer Name
+                    </span>
+                    <input
+                      type="text"
+                      name="customername"
+                      value={formdata.customername}
+                      onChange={handlechange}
+                      placeholder="Enter customer name"
+                      // className="h-14 p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.customername
+                          ? "border-red-500"
+                          : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.customername
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                    />
+                    {errors.customername && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.customername}
+                      </span>
+                    )}
+                  </label>
+                  {/* Email */}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Email
+                    </span>
+                    <input
+                      type="email"
+                      name="customeremail"
+                      value={formdata.customeremail}
+                      onChange={handlechange}
+                      placeholder="Enter email address"
+                      // className="h-14 p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.customeremail
+                          ? "border-red-500"
+                          : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.customeremail
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                    />
+                    {errors.customeremail && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.customeremail}
+                      </span>
+                    )}
+                  </label>
+                  {/* Phone Number */}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Phone Number
+                    </span>
+                    <input
+                      type="number"
+                      pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                      name="customerphonenumber"
+                      value={formdata.customerphonenumber}
+                      onChange={handlechange}
+                      placeholder="Enter phone number"
+                      // className="h-14 p-4 rounded-xl  border border-[#ced3e9]  bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.customerphonenumber
+                          ? "border-red-500"
+                          : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.customerphonenumber
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                    />
+                    {errors.customerphonenumber && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.customerphonenumber}
+                      </span>
+                    )}
+                  </label>{" "}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      GSTIN
+                    </span>
+                    <input
+                      type="text"
+                      name="customergst"
+                      value={formdata.customergst}
+                      onChange={handlechange}
+                      placeholder="Enter GSTIN"
+                      // className="h-14 p-4 rounded-xl  border border-[#ced3e9]  bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.customergst
+                          ? "border-red-500"
+                          : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.customergst
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                    />
+                    {errors.customergst && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.customergst}
+                      </span>
+                    )}
+                  </label>
+                  {/* Address (span 2 columns) */}
+                  <label className="flex flex-col md:col-span-2">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Address
+                    </span>
+                    <textarea
+                      name="customeraddress"
+                      value={formdata.customeraddress}
+                      onChange={handlechange}
+                      placeholder="Enter customer address"
+                      // className="min-h-[100px] p-4 rounded-xl  border border-[#ced3e9] bg-[#e9eaf2] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
+                      className={`h-24 p-4 rounded-xl border ${
+                        errors.customeraddress
+                          ? "border-red-500"
+                          : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.customeraddress
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                    />
+                    {errors.customeraddress && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.customeraddress}
+                      </span>
+                    )}
+                  </label>
+                  {/* Notes (span 2 columns) */}
+                </div>
 
-              {/* Buttons */}
-              <div className="flex justify-end gap-4 px-6 py-6 border-t border-gray-200">
-                <button
-                  onClick={() => setmodel(!model)}
-                  className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] text-white text-sm font-bold transition"
-                >
-                  Cancel
-                </button>
-                <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2]  text-white text-sm font-bold transition">
-                  Add Customer
-                </button>
-              </div>
+                {/* Buttons */}
+                <div className="flex justify-end gap-4 px-6 py-6 border-t border-gray-200">
+                  <button
+                    onClick={() => setmodel(!model)}
+                    className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181] text-white text-sm font-bold transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2]  text-white text-sm font-bold transition"
+                  >
+                    Add Customer
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         ) : (

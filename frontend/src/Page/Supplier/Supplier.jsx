@@ -2,6 +2,56 @@ import React, { useState } from "react";
 
 function Supplier() {
   const [model, setmodel] = useState(false);
+  const [errors, seterrors] = useState({});
+
+  const [formdata, setformdata] = useState({
+    name: "",
+    email: "",
+    phonenumber: "",
+    companyname: "",
+    address: "",
+  });
+
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setformdata({ ...formdata, [name]: value });
+  };
+  const validation = () => {
+    const newerror = {};
+    if (!formdata.name.trim()) {
+      newerror.name = "Please Enter Supplier Name";
+    } else if (formdata.name.length < 5) {
+      newerror.name = "Please Enter Supplier Name min 5 Char";
+    }
+    if (!formdata.email.trim()) {
+      newerror.email = "Please Enter Supplier Email";
+    } else if (!/\S+@\S+\.\S+/.test(formdata.email)) {
+      newerror.email = "Please Enter Valid Email ";
+    }
+    if (!formdata.phonenumber.trim()) {
+      newerror.phonenumber = "Please Enter Supplier PhoneNumber";
+    } else if (formdata.phonenumber.length < 10) {
+      newerror.phonenumber = "Please Enter 10 Digit PhoneNumber ";
+    }
+    if (!formdata.companyname.trim()) {
+      newerror.companyname = "Please Enter Company Name";
+    } else if (formdata.companyname.length < 5) {
+      newerror.companyname = "Please Enter Company Name min 5 Char";
+    }
+    if (!formdata.address.trim()) {
+      newerror.address = "Please Enter address";
+    } else if (formdata.address.length < 5) {
+      newerror.address = "Please Enter Customer Address Min 15 Char";
+    }
+
+    seterrors(newerror);
+  };
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    if (!validation()) return;
+  };
+
   return (
     <>
       <div className="flex flex-col max-w-[960px]">
@@ -25,87 +75,171 @@ function Supplier() {
           >
             <div className="w-full max-w-[800px] bg-white rounded-2xl shadow-2xl overflow-y-auto max-h-[90vh]">
               {/* Header */}
-              <div className="flex justify-between items-center p-6 border-b  ">
-                <p className="text-[#0f111a] text-3xl font-bold leading-tight">
-                  Add Supplier
-                </p>
-              </div>
+              <form onSubmit={handlesubmit}>
+                <div className="flex justify-between items-center p-6 border-b  ">
+                  <p className="text-[#0f111a] text-3xl font-bold leading-tight">
+                    Add Supplier
+                  </p>
+                </div>
 
-              {/* Form Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 py-6">
-                {/* Customer Name */}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Supplier Name
-                  </span>
-                  <input
-                    placeholder="Enter customer name"
-                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>
-                {/* Email */}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Email
-                  </span>
-                  <input
-                    placeholder="Enter email address"
-                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>
-                {/* Phone Number */}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Phone Number
-                  </span>
-                  <input
-                    placeholder="Enter phone number"
-                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>{" "}
-                <label className="flex flex-col">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Company Name
-                  </span>
-                  <input
-                    placeholder="Enter company name"
-                    className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
-                  />
-                </label>
-                {/* Address (span 2 columns) */}
-                <label className="flex flex-col md:col-span-2">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Address
-                  </span>
-                  <textarea
-                    placeholder="Enter customer address"
-                    className="min-h-[100px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
-                  />
-                </label>
-                {/* Notes (span 2 columns) */}
-                <label className="flex flex-col md:col-span-2">
-                  <span className="text-base font-semibold text-[#0f111a] pb-2">
-                    Notes
-                  </span>
-                  <textarea
-                    placeholder="Additional details about the Supplier"
-                    className="min-h-[120px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
-                  />
-                </label>
-              </div>
+                {/* Form Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 py-6">
+                  {/* Customer Name */}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Supplier Name
+                    </span>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formdata.name}
+                      onChange={handlechange}
+                      placeholder="Enter customer name"
+                      // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.name ? "border-red-500" : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.name
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                    />
+                    {errors.name && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.name}
+                      </span>
+                    )}
+                  </label>
+                  {/* Email */}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Email
+                    </span>
+                    <input
+                      type="email"
+                      placeholder="Enter email address"
+                      name="email"
+                      value={formdata.email}
+                      onChange={handlechange}
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.email ? "border-red-500" : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.email
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                    />
+                    {errors.email && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.email}
+                      </span>
+                    )}
+                  </label>
+                  {/* Phone Number */}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Phone Number
+                    </span>
+                    <input
+                      type="number"
+                      name="phonenumber"
+                      value={formdata.phonenumber}
+                      onChange={handlechange}
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.phonenumber
+                          ? "border-red-500"
+                          : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.phonenumber
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                      placeholder="Enter phone number"
+                      // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    />
+                    {errors.phonenumber && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.phonenumber}
+                      </span>
+                    )}
+                  </label>{" "}
+                  <label className="flex flex-col">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Company Name
+                    </span>
+                    <input
+                      type="text"
+                      name="companyname"
+                      value={formdata.companyname}
+                      onChange={handlechange}
+                      className={`h-14 p-4 rounded-xl border ${
+                        errors.companyname
+                          ? "border-red-500"
+                          : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.companyname
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                      placeholder="Enter company name"
+                      // className="h-14 p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa]"
+                    />
+                    {errors.companyname && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.companyname}
+                      </span>
+                    )}
+                  </label>
+                  {/* Address (span 2 columns) */}
+                  <label className="flex flex-col md:col-span-2">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Address
+                    </span>
+                    <textarea
+                      name="address"
+                      value={formdata.address}
+                      onChange={handlechange}
+                      className={`h-24 p-4 rounded-xl border ${
+                        errors.address ? "border-red-500" : "border-[#ced3e9]"
+                      } bg-[#f8f9fc] text-[#0d0f1c] focus:outline-none focus:ring-2 ${
+                        errors.address
+                          ? "focus:ring-red-400"
+                          : "focus:ring-[#4264fa]"
+                      }`}
+                      placeholder="Enter customer address"
+                      // className="min-h-[100px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
+                    />
+                    {errors.address && (
+                      <span className="text-sm text-red-500 mt-1">
+                        {errors.address}
+                      </span>
+                    )}
+                  </label>
+                  {/* Notes (span 2 columns) */}
+                  <label className="flex flex-col md:col-span-2">
+                    <span className="text-base font-semibold text-[#0f111a] pb-2">
+                      Notes<span className="text-[#7e818f] ">(Optional)</span>
+                    </span>
+                    <textarea
+                      placeholder="Additional details about the Supplier"
+                      className="min-h-[120px] p-4 rounded-xl border border-[#ced3e9] bg-[#f8f9fc] placeholder:text-[#47579e] text-[#0f111a] focus:outline-none focus:ring-2 focus:ring-[#4264fa] resize-none"
+                    />
+                  </label>
+                </div>
 
-              {/* Buttons */}
-              <div className="flex justify-end gap-4 px-6 py-6 border-t border-gray-200">
-                <button
-                  onClick={() => setmodel(!model)}
-                  className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181]  text-white text-sm font-bold transition"
-                >
-                  Cancel
-                </button>
-                <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] text-white text-sm font-bold transition">
-                  Add Supplier
-                </button>
-              </div>
+                {/* Buttons */}
+                <div className="flex justify-end gap-4 px-6 py-6 border-t border-gray-200">
+                  <button
+                    onClick={() => setmodel(!model)}
+                    className="h-10 px-6 rounded-xl bg-[#EF4444] hover:bg-[#e08181]  text-white text-sm font-bold transition"
+                  >
+                    Cancel
+                  </button>
+                  <button className="h-10 px-6 rounded-xl bg-[#10B981] hover:bg-[#88dfc2] text-white text-sm font-bold transition">
+                    Add Supplier
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         ) : (
